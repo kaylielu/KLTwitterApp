@@ -4,16 +4,19 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.codepath.apps.mysimpletweets.fragments.ComposeTweetFragment;
 import com.codepath.apps.mysimpletweets.fragments.HomeTimelineFragment;
 import com.codepath.apps.mysimpletweets.fragments.MentionsTimelineFragment;
 import com.codepath.apps.mysimpletweets.fragments.TweetsListFragment;
@@ -25,15 +28,22 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class TimelineActivity extends ActionBarActivity {
 
+    ComposeTweetFragment composeFragment;
+
+    //@BindView(R.id.timeline_toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+        composeFragment = new ComposeTweetFragment();
 
         // Get the viewpager
         ViewPager vpPager = (ViewPager)findViewById(R.id.viewpager);
@@ -44,6 +54,9 @@ public class TimelineActivity extends ActionBarActivity {
 
         tabStrip.setViewPager(vpPager);
         // Attach the tabtrip to the viewpager
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.timeline_toolbar);
+        setSupportActionBar(toolbar);
 
     }
 
@@ -70,6 +83,17 @@ public class TimelineActivity extends ActionBarActivity {
         // launch the profile view
         Intent i = new Intent(this, ProfileActivity.class);
         startActivity(i);
+    }
+
+    public void onComposeTweet(MenuItem mi){
+
+        // Begin the transaction
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+// Replace the contents of the container with the new fragment
+        ft.add(R.id.flComposeTweet, composeFragment );
+// or ft.add(R.id.your_placeholder, new FooFragment());
+// Complete the changes added above
+        ft.commit();
     }
 
     // Return the order of the fragments in the view pager

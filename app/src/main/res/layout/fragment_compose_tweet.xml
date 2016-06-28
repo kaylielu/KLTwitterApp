@@ -1,0 +1,73 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ComposeTweetFragment"
+    android:background="#FFFFFF">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="476dp"
+        android:layout_gravity="right|top"
+        android:layout_margin="20dp">
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="right|top"
+            android:background="#555ace"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/tvName"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/imageView"
+            android:layout_toStartOf="@+id/imageView"
+            android:layout_margin="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/tvScreenname"
+            android:layout_below="@+id/tvName"
+            android:layout_alignRight="@+id/tvName"
+            android:layout_alignEnd="@+id/tvName" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/etTweetBody"
+            android:text=""
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/btnSubmitTweet"
+            android:layout_alignEnd="@+id/btnSubmitTweet"
+            android:layout_below="@+id/imageView" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tweet"
+            android:id="@+id/btnSubmitTweet"
+            android:layout_below="@+id/etTweetBody"
+            android:layout_alignRight="@+id/imageView"
+            android:layout_alignEnd="@+id/imageView"
+            android:layout_margin="0dp"
+            android:onClick="postTweet"
+            android:layout_marginRight="10dp" />
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -2,6 +2,7 @@ package com.codepath.apps.mysimpletweets;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -15,8 +16,9 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
+		setSupportActionBar(toolbar);
 	}
-
 
 	// Inflate the menu; this adds items to the action bar if it is present.
 	@Override

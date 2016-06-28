@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,11 +41,14 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         }
         // Find the subivews to fill with data in teh template
         ImageView ivProfileImage = (ImageView) convertView.findViewById(R.id.ivProfileImage);
-        TextView tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
+        TextView tvUserName = (TextView) convertView.findViewById(R.id.tvName);
         TextView tvBody = (TextView)convertView.findViewById(R.id.tvBody);
+        TextView tvTime = (TextView)convertView.findViewById(R.id.tvTime);
+
         // populate data into subviews
         tvUserName.setText(tweet.getUser().getScreenName());
         tvBody.setText(tweet.getBody());
+        tvTime.setText(tweet.getCreatedAt());
         ivProfileImage.setImageResource(android.R.color.transparent); // clear out old image for recucleview
         Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(ivProfileImage);
         //return the view to be inserted into teh list

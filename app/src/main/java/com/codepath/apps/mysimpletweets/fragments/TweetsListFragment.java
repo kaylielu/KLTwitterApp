@@ -15,6 +15,10 @@ import com.codepath.apps.mysimpletweets.models.Tweet;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by kaylie on 6/27/16.
  */
@@ -22,14 +26,15 @@ public class TweetsListFragment extends Fragment {
 
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
-    private ListView lvTweets;
+    @BindView (R.id.lvTweets) ListView lvTweets;
+    private Unbinder unbinder;
     // inflation logic
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tweets_list, container, false);
-        lvTweets = (ListView) v.findViewById(R.id.lvTweets);
+        unbinder = ButterKnife.bind(this, v);
         lvTweets.setAdapter(aTweets);
         return v;
     }
@@ -45,5 +50,10 @@ public class TweetsListFragment extends Fragment {
 
     public void addAll(List<Tweet> tweets){
         aTweets.addAll(tweets);
+    }
+
+    @Override public void onDestroyView(){
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

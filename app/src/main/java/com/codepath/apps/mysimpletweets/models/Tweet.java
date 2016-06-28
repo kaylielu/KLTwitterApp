@@ -1,10 +1,15 @@
 package com.codepath.apps.mysimpletweets.models;
 
+import android.text.format.DateUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by kaylie on 6/27/16.
@@ -61,6 +66,35 @@ public class Tweet {
         return createdAt;
     }
 
+    // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
+    public static String getRelativeTimeAgo(String rawJsonDate) {
+        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+        sf.setLenient(true);
+
+        String relativeDate = "";
+        try {
+            long dateMillis = sf.parse(rawJsonDate).getTime();
+            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
+                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(relativeDate);
+
+        return getTwitterVersion(relativeDate);
+    }
+
+    // Method to get only the number and the first letter of the time unit so that it looks like twitter's
+    public static String getTwitterVersion(String time){
+        String returnTime = "";
+        int numIndex = time.indexOf(' ');
+        String firstsub = time.substring(0, numIndex);
+        returnTime = time.substring(0, numIndex) + time.substring(numIndex + 1, numIndex + 2);
+        return returnTime;
+
+    }
     // Deserialize the JSON amd build Tweet objects
     // Tweet.fromJSON{"{...)"}-> <Tweet>
     public static Tweet fromJSON(JSONObject jsonObject){
@@ -69,7 +103,8 @@ public class Tweet {
         try {
             tweet.body = jsonObject.getString("text");
             tweet.uid = jsonObject.getLong("id");
-            tweet.createdAt = jsonObject.getString("created_at");
+            String time = jsonObject.getString("created_at");
+            tweet.createdAt = getRelativeTimeAgo(time);
             tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
         } catch (JSONException e) {
             e.printStackTrace();
