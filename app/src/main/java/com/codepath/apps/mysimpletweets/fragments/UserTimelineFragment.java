@@ -43,7 +43,7 @@ public class UserTimelineFragment extends TweetsListFragment {
     // fill the listview by creating the tweet objects from the json
     private void populateTimeline() {
         String screenName = getArguments().getString("screen_name");
-        client.getUserTimeline(new JsonHttpResponseHandler() {
+        client.getUserTimeline(screenName, new JsonHttpResponseHandler() {
             // success
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
