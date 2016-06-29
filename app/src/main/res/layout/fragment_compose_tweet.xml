@@ -49,12 +49,12 @@
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/etTweetBody"
-            android:text=""
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignRight="@+id/btnSubmitTweet"
             android:layout_alignEnd="@+id/btnSubmitTweet"
-            android:layout_below="@+id/imageView" />
+            android:layout_below="@+id/imageView"
+            android:hint="What&apos;s happening?" />
 
         <Button
             android:layout_width="wrap_content"

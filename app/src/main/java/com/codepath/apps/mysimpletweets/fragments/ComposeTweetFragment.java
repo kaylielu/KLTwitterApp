@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.codepath.apps.mysimpletweets.R;
@@ -54,17 +55,10 @@ public class ComposeTweetFragment extends Fragment {
                              Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_compose_tweet, container, false);
         unbinder = ButterKnife.bind(this, view);
-        tweet = tweetText.getText().toString();
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                postTweet();
-            }
-
-
-    });
-
+        tweetText = (EditText) view.findViewById(R.id.etTweetBody);
+        Log.d("DEBUG", "onCreateView");
         return view;
+
     }
 
     @Override public void onDestroyView(){
@@ -72,6 +66,23 @@ public class ComposeTweetFragment extends Fragment {
         unbinder.unbind();
     }
 
+    // This event is triggered soon after onCreateView().
+    // onViewCreated() is only called if the view returned from onCreateView() is non-null.
+    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tweet = tweetText.getText().toString();
+                client.setTweet(tweet);
+                postTweet();
+            }
+
+
+        });
+
+    }
     public void postTweet(){
         client.postTweet(new JsonHttpResponseHandler() {
             // success

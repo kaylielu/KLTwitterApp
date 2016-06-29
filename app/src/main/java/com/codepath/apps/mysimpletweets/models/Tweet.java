@@ -81,8 +81,6 @@ public class Tweet {
             e.printStackTrace();
         }
 
-        System.out.println(relativeDate);
-
         return getTwitterVersion(relativeDate);
     }
 
