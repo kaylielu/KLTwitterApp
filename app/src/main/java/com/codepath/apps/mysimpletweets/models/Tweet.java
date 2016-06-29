@@ -89,11 +89,14 @@ public class Tweet {
 
     // Method to get only the number and the first letter of the time unit so that it looks like twitter's
     public static String getTwitterVersion(String time){
-        Log.d("DEBUG", time);
         String returnTime = "";
         int numIndex = time.indexOf(' ');
 
-        if(numIndex != -1) {
+        int comIndex = time.indexOf(',');
+        if(comIndex != -1){
+            returnTime = time.substring(0, comIndex);
+
+        }else if(numIndex != -1) {
             returnTime = time.substring(0, numIndex) + time.substring(numIndex + 1, numIndex + 2);
 
         }else{
