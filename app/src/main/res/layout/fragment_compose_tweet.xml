@@ -68,6 +68,16 @@
             android:onClick="postTweet"
             android:layout_marginRight="10dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="140"
+            android:id="@+id/tvCharLeft"
+            android:layout_toLeftOf="@+id/btnSubmitTweet"
+            android:layout_toStartOf="@+id/btnSubmitTweet"
+            android:layout_alignBottom="@+id/btnSubmitTweet" />
+
     </RelativeLayout>
 
 </FrameLayout>

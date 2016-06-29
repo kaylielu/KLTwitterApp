@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.mysimpletweets.fragments.ComposeTweetFragment;
@@ -34,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
-public class TimelineActivity extends ActionBarActivity {
+public class TimelineActivity extends AppCompatActivity implements ComposeTweetFragment.ComposeTweetListener {
 
     ComposeTweetFragment composeFragment;
 
@@ -62,6 +63,12 @@ public class TimelineActivity extends ActionBarActivity {
 
     }
 
+    @Override
+    public void onFinishComposeTweet(String inputText) {
+        Toast.makeText(this, "Hi, " + inputText, Toast.LENGTH_SHORT).show();
+    }
+
+
     // [] == JSONArray
     // {} == JSONObject
 
@@ -87,15 +94,26 @@ public class TimelineActivity extends ActionBarActivity {
         startActivity(i);
     }
 
+    private void showComposeDialog(){
+
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeTweetFragment fragment = ComposeTweetFragment.newInstance("Title");
+        fragment.show(fm, "fragment?");
+
+
+    }
+
+
     public void onComposeTweet(MenuItem mi){
 
-        // Begin the transaction
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-// Replace the contents of the container with the new fragment
-        ft.add(R.id.flComposeTweet, composeFragment );
-// or ft.add(R.id.your_placeholder, new FooFragment());
-// Complete the changes added above
-        ft.commit();
+        showComposeDialog();
+//        // Begin the transaction
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//// Replace the contents of the container with the new fragment
+//        ft.add(R.id.flComposeTweet, composeFragment );
+//// or ft.add(R.id.your_placeholder, new FooFragment());
+//// Complete the changes added above
+//        ft.commit();
     }
 
     // Return the order of the fragments in the view pager
