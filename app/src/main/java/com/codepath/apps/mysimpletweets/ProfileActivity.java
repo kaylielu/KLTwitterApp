@@ -1,9 +1,12 @@
 package com.codepath.apps.mysimpletweets;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +16,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,27 +26,64 @@ public class ProfileActivity extends AppCompatActivity {
 
     TwitterClient client;
     User user;
+    private Bundle savedInstanceState;
     @BindView (R.id.profile_toolbar) Toolbar toolbar;
+    String screenName;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
+        Parcelable p = getIntent().getParcelableExtra("user");
         client = TwitterApplication.getRestClient();
         setSupportActionBar(toolbar);
-        // Get the account info
-        client.getUserInfo(new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response){
-                user = User.fromJSON(response);
-                // My current user account's info
-                populateProfileHeader(user);
-            }
-        });
 
 
-        String screenName = getIntent().getStringExtra("screen_name");
+
+        if (p == null) {
+
+            Log.d("DEBUG", "clicked on own profile");
+            // Get the account info
+            client.getUserInfo(new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    user = User.fromJSON(response);
+                    Log.d("USER", user.getName() + " " + user.getProfileImageUrl() + " " + user.getTagline());
+                    populateProfileHeader(user, savedInstanceState);
+
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    throwable.printStackTrace();
+                }
+            });
+
+        }else{
+
+            Log.d("DEBUG", "clicked on other profile");
+            user = Parcels.unwrap(p);
+            populateProfileHeader(user, savedInstanceState);
+        }
+
+
+
+        // My current user account's info
+
+
+
+
+    }
+
+    private void populateProfileHeader(User user, Bundle savedInstanceState) {
+        this.user = user;
+        this.savedInstanceState = savedInstanceState;
+        if(getSupportActionBar()!= null){
+            getSupportActionBar().setTitle("@" + user.getScreenName());
+        }
+
+        screenName = user.getScreenName();
         // Create the user timeline fragment
         if(savedInstanceState == null) {
 
@@ -55,12 +96,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
 
-    }
-
-    private void populateProfileHeader(User user) {
-        if(getSupportActionBar()!= null){
-            getSupportActionBar().setTitle("@" + user.getScreenName());
-        }
 
         TextView tvName = (TextView) findViewById(R.id.tvFullName);
         TextView tvTagline = (TextView) findViewById(R.id.tvTagline);

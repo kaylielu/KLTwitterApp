@@ -1,10 +1,12 @@
 package com.codepath.apps.mysimpletweets.models;
 
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,6 +45,7 @@ import java.util.Locale;
  */
 
     //Parse the JSON + store the data, encapsulate state logic or display logic
+@Parcel
 public class Tweet {
 
     // list out attributes
@@ -86,10 +89,16 @@ public class Tweet {
 
     // Method to get only the number and the first letter of the time unit so that it looks like twitter's
     public static String getTwitterVersion(String time){
+        Log.d("DEBUG", time);
         String returnTime = "";
         int numIndex = time.indexOf(' ');
-        String firstsub = time.substring(0, numIndex);
-        returnTime = time.substring(0, numIndex) + time.substring(numIndex + 1, numIndex + 2);
+
+        if(numIndex != -1) {
+            returnTime = time.substring(0, numIndex) + time.substring(numIndex + 1, numIndex + 2);
+
+        }else{
+            returnTime = "1d";
+        }
         return returnTime;
 
     }

@@ -1,21 +1,50 @@
 package com.codepath.apps.mysimpletweets.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Created by kaylie on 6/27/16.
  */
+@org.parceler.Parcel
 public class User {
 
     // list attributes
-    private String name;
-    private long uid;
-    private String screenName;
-    private String profileImageUrl;
-    private String tagline;
-    private int followersCount;
-    private int followingsCount;
+    public String name;
+    public long uid;
+    public String screenName;
+    public String profileImageUrl;
+    public String tagline;
+    public int followersCount;
+    public int followingsCount;
+
+    protected User(Parcel in) {
+        name = in.readString();
+        uid = in.readLong();
+        screenName = in.readString();
+        profileImageUrl = in.readString();
+        tagline = in.readString();
+        followersCount = in.readInt();
+        followingsCount = in.readInt();
+    }
+
+//    public static final Creator<User> CREATOR = new Creator<User>() {
+//        @Override
+//        public User createFromParcel(Parcel in) {
+//            return new User(in);
+//        }
+//
+//        @Override
+//        public User[] newArray(int size) {
+//            return new User[size];
+//        }
+//    };
+
+    public User() {
+    }
 
     public String getTagline() {
         return tagline;
@@ -64,4 +93,22 @@ public class User {
         // Return a user
         return u;
     }
+
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel dest, int flags) {
+//        dest.writeString(name);
+//        dest.writeLong(uid);
+//        dest.writeString(screenName);
+//        dest.writeString(profileImageUrl);
+//        dest.writeString(tagline);
+//        dest.writeInt(followersCount);
+//        dest.writeInt(followingsCount);
+//
+//
+//    }
 }
