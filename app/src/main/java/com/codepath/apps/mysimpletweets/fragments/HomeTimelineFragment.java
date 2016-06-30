@@ -1,10 +1,12 @@
 package com.codepath.apps.mysimpletweets.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.codepath.apps.mysimpletweets.R;
+import com.codepath.apps.mysimpletweets.TimelineActivity;
 import com.codepath.apps.mysimpletweets.TwitterApplication;
 import com.codepath.apps.mysimpletweets.TwitterClient;
 import com.codepath.apps.mysimpletweets.models.Tweet;
@@ -37,6 +39,14 @@ public class HomeTimelineFragment extends TweetsListFragment{
     // Send an api request to get the timeline json
     // fill the listview by creating the tweet objects from the json
     private void populateTimeline() {
+
+        final ProgressDialog pd = new ProgressDialog(getContext());
+        pd.setTitle("Loading...");
+        pd.setMessage("Please wait.");
+        pd.setCancelable(false);
+
+
+        pd.show();
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             // success
             @Override
@@ -46,11 +56,13 @@ public class HomeTimelineFragment extends TweetsListFragment{
                 // CREATE MODELS and add them to the adapter
                 // LOAD THE MODEL DATA INTO LISTVIEW
                 addAll(Tweet.fromJSONArray(json));
+                pd.dismiss();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
 
+                pd.dismiss();
                 Log.d("DEBUG", errorResponse.toString());
             }
         });

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -40,9 +42,9 @@ import cz.msebera.android.httpclient.Header;
 public class TimelineActivity extends AppCompatActivity implements ComposeTweetFragment.ComposeTweetListener {
 
     ComposeTweetFragment composeFragment;
-    private TwitterClient client;
     SmartFragmentStatePagerAdapter newAdapter;
-    Fragment fragment;
+    // Instance of the progress action-view
+    public static MenuItem miActionProgressItem;
 
 
     //@BindView(R.id.timeline_toolbar) Toolbar toolbar;

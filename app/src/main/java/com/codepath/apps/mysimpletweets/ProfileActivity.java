@@ -1,5 +1,6 @@
 package com.codepath.apps.mysimpletweets;
 
+import android.app.ProgressDialog;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentTransaction;
@@ -39,11 +40,14 @@ public class ProfileActivity extends AppCompatActivity {
         client = TwitterApplication.getRestClient();
         setSupportActionBar(toolbar);
 
+        final ProgressDialog pd = new ProgressDialog(getApplicationContext());
+        pd.setTitle("Loading...");
+        pd.setMessage("Please wait.");
+        pd.setCancelable(false);
 
-
+        pd.show();
         if (p == null) {
 
-            Log.d("DEBUG", "clicked on own profile");
             // Get the account info
             client.getUserInfo(new JsonHttpResponseHandler() {
                 @Override
@@ -52,11 +56,13 @@ public class ProfileActivity extends AppCompatActivity {
                     Log.d("USER", user.getName() + " " + user.getProfileImageUrl() + " " + user.getTagline());
                     populateProfileHeader(user, savedInstanceState);
 
+                    pd.dismiss();
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     throwable.printStackTrace();
+                    pd.dismiss();
                 }
             });
 
@@ -65,6 +71,8 @@ public class ProfileActivity extends AppCompatActivity {
             Log.d("DEBUG", "clicked on other profile");
             user = Parcels.unwrap(p);
             populateProfileHeader(user, savedInstanceState);
+            pd.dismiss();
+
         }
 
 
