@@ -52,6 +52,12 @@ public class TweetsListFragment extends Fragment {
         aTweets.addAll(tweets);
     }
 
+
+    public void addOne(Tweet tweet){
+        aTweets.insert(tweet, 0);
+    }
+
+
     @Override public void onDestroyView(){
         super.onDestroyView();
         unbinder.unbind();

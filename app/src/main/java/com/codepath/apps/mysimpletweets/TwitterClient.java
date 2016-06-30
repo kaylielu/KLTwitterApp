@@ -30,7 +30,7 @@ public class TwitterClient extends OAuthBaseClient {
 	public static final String REST_CONSUMER_KEY = "OYmVEPYWXqf1TbHOT3bBoScZy";       // Change this
 	public static final String REST_CONSUMER_SECRET = "AoYpDXcvccVdQn1wnkEkbM8Xha8ZvMwZMGhoTDt92t8vy7myIz"; // Change this
 	public static final String REST_CALLBACK_URL = "oauth://klsimpletweets"; // Change this (here and in manifest)
-	private String tweet = "";
+
 
 	public TwitterClient(Context context) {
 		super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
@@ -78,17 +78,13 @@ public class TwitterClient extends OAuthBaseClient {
 	}
 	// Compose tweet
 
-	public void postTweet(AsyncHttpResponseHandler handler){
+	public void postTweet(String tweet, AsyncHttpResponseHandler handler){
 		String apiUrl = getApiUrl("statuses/update.json");
 		RequestParams params = new RequestParams();
 		params.put("status", tweet);
 		getClient().post(apiUrl, params, handler);
 	}
 
-	public void setTweet(String tweet){
-		this.tweet = tweet;
-
-	}
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
 	 * 	  i.e getApiUrl("statuses/home_timeline.json");

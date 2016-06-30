@@ -35,12 +35,16 @@ import cz.msebera.android.httpclient.Header;
 
 public class ComposeTweetFragment extends DialogFragment {
 
-    @BindView(R.id.btnSubmitTweet) Button submit;
-    @BindView(R.id.etTweetBody) EditText tweetText;
-    @BindView(R.id.tvCharLeft) TextView charLeft;
+    @BindView(R.id.btnSubmitTweet)
+    Button submit;
+    @BindView(R.id.etTweetBody)
+    EditText tweetText;
+    @BindView(R.id.tvCharLeft)
+    TextView charLeft;
     @BindView(R.id.tvName)
     TextView name;
-    @BindView(R.id.tvScreenname)TextView screenname;
+    @BindView(R.id.tvScreenname)
+    TextView screenname;
     private String tweet;
     private Unbinder unbinder;
     private TwitterClient client;
@@ -52,7 +56,7 @@ public class ComposeTweetFragment extends DialogFragment {
 
     // 1. Defines the listener interface with a method passing back data result.
     public interface ComposeTweetListener {
-        void onFinishComposeTweet(String inputText);
+        void onFinishComposeTweet(Tweet tweet);
     }
 
 
@@ -65,19 +69,18 @@ public class ComposeTweetFragment extends DialogFragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.fragment_compose_tweet, container, false);
+        View view = inflater.inflate(R.layout.fragment_compose_tweet, container, false);
         unbinder = ButterKnife.bind(this, view);
         tweetText = (EditText) view.findViewById(R.id.etTweetBody);
-        Log.d("DEBUG", "onCreateView");
         return view;
 
     }
 
-    @Override public void onDestroyView(){
+    @Override
+    public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -115,12 +118,8 @@ public class ComposeTweetFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 tweet = tweetText.getText().toString();
-                client.setTweet(tweet);
                 postTweet();
-                // Return input text back to activity through the implemented listener
-                ComposeTweetListener listener = (ComposeTweetListener) getActivity();
-                listener.onFinishComposeTweet(tweetText.getText().toString());
-                dismiss();
+
 
             }
 
@@ -129,30 +128,34 @@ public class ComposeTweetFragment extends DialogFragment {
 
     }
 
+    public void postTweet() {
 
-    public void postTweet(){
-        client.postTweet(new JsonHttpResponseHandler() {
+        client.postTweet(tweet, new JsonHttpResponseHandler() {
             // success
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
                 //JSON HERE
                 // DESERIALIZE JSON
                 // CREATE MODELS and add them to the adapter
                 // LOAD THE MODEL DATA INTO LISTVIEW
+
+                Tweet tweet = Tweet.fromJSON(json);
+
+                // Return input text back to activity through the implemented listener
+                ComposeTweetListener listener = (ComposeTweetListener) getActivity();
+                listener.onFinishComposeTweet(Tweet.fromJSON(json));
+                dismiss();
+
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject
+                    errorResponse) {
 
                 Log.d("DEBUG", errorResponse.toString());
             }
         });
 
 
-
-
-        //getFragmentManager().
     }
-
-
 }

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +40,10 @@ import cz.msebera.android.httpclient.Header;
 public class TimelineActivity extends AppCompatActivity implements ComposeTweetFragment.ComposeTweetListener {
 
     ComposeTweetFragment composeFragment;
+    private TwitterClient client;
+    SmartFragmentStatePagerAdapter newAdapter;
+    Fragment fragment;
+
 
     //@BindView(R.id.timeline_toolbar) Toolbar toolbar;
 
@@ -51,7 +57,10 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         // Get the viewpager
         ViewPager vpPager = (ViewPager)findViewById(R.id.viewpager);
         // Set the viewpager adapter for the adapter
-        vpPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager()));
+
+        newAdapter = new TweetsPagerAdapter(getSupportFragmentManager());
+        vpPager.setAdapter(newAdapter);
+        //newAdapter.get
         // Find the pager tabstrip
         PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip)findViewById(R.id.tabs);
 
@@ -64,10 +73,13 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     }
 
     @Override
-    public void onFinishComposeTweet(String inputText) {
-        Toast.makeText(this, "Hi, " + inputText, Toast.LENGTH_SHORT).show();
+    public void onFinishComposeTweet(Tweet tweet) {
+        // Inside `onActivityResult` in the main `TweetsActivity`
+// Pass new tweet into the home timeline and add to top of the list
+        HomeTimelineFragment fragmentHomeTweets =
+                (HomeTimelineFragment) newAdapter.getRegisteredFragment(0);
+        fragmentHomeTweets.addOne(tweet);
     }
-
 
     // [] == JSONArray
     // {} == JSONObject
@@ -116,8 +128,11 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
 //        ft.commit();
     }
 
+
+
+
     // Return the order of the fragments in the view pager
-    public class TweetsPagerAdapter extends FragmentPagerAdapter{
+    public class TweetsPagerAdapter extends SmartFragmentStatePagerAdapter{
 
         private String tabTitles[] = {"Home", "Mentions"};
 

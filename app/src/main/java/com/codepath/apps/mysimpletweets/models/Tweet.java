@@ -11,6 +11,7 @@ import org.parceler.Parcel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
 /**
@@ -69,41 +70,58 @@ public class Tweet {
         return createdAt;
     }
 
-    // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
-    public static String getRelativeTimeAgo(String rawJsonDate) {
-        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
-        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
-        sf.setLenient(true);
+//    // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
+//    public static String getRelativeTimeAgo(String rawJsonDate) {
+//        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+//        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+//        sf.setLenient(true);
+//
+//        String relativeDate = "";
+//        try {
+//            long dateMillis = sf.parse(rawJsonDate).getTime();
+//            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
+//                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return getTimeDifference(relativeDate);
+//    }
 
-        String relativeDate = "";
+    public static String getTimeDifference(String rawJsonDate) {
+        String time = "";
+        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+        SimpleDateFormat format = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+        format.setLenient(true);
         try {
-            long dateMillis = sf.parse(rawJsonDate).getTime();
-            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
-                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
-        } catch (ParseException e) {
+            long diff = (System.currentTimeMillis() - format.parse(rawJsonDate).getTime()) / 1000;
+            if (diff < 5)
+                time = "Just now";
+            else if (diff < 60)
+                time = String.format(Locale.ENGLISH, "%ds",diff);
+            else if (diff < 60 * 60)
+                time = String.format(Locale.ENGLISH, "%dm", diff / 60);
+            else if (diff < 60 * 60 * 24)
+                time = String.format(Locale.ENGLISH, "%dh", diff / (60 * 60));
+            else if (diff < 60 * 60 * 24 * 30)
+                time = String.format(Locale.ENGLISH, "%dd", diff / (60 * 60 * 24));
+            else {
+                Calendar now = Calendar.getInstance();
+                Calendar then = Calendar.getInstance();
+                then.setTime(format.parse(rawJsonDate));
+                if (now.get(Calendar.YEAR) == then.get(Calendar.YEAR)) {
+                    time = String.valueOf(then.get(Calendar.DAY_OF_MONTH)) + " "
+                            + then.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US);
+                } else {
+                    time = String.valueOf(then.get(Calendar.DAY_OF_MONTH)) + " "
+                            + then.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US)
+                            + " " + String.valueOf(then.get(Calendar.YEAR) - 2000);
+                }
+            }
+        }  catch (ParseException e) {
             e.printStackTrace();
         }
-
-        return getTwitterVersion(relativeDate);
-    }
-
-    // Method to get only the number and the first letter of the time unit so that it looks like twitter's
-    public static String getTwitterVersion(String time){
-        String returnTime = "";
-        int numIndex = time.indexOf(' ');
-
-        int comIndex = time.indexOf(',');
-        if(comIndex != -1){
-            returnTime = time.substring(0, comIndex);
-
-        }else if(numIndex != -1) {
-            returnTime = time.substring(0, numIndex) + time.substring(numIndex + 1, numIndex + 2);
-
-        }else{
-            returnTime = "1d";
-        }
-        return returnTime;
-
+        return time;
     }
     // Deserialize the JSON amd build Tweet objects
     // Tweet.fromJSON{"{...)"}-> <Tweet>
@@ -114,7 +132,7 @@ public class Tweet {
             tweet.body = jsonObject.getString("text");
             tweet.uid = jsonObject.getLong("id");
             String time = jsonObject.getString("created_at");
-            tweet.createdAt = getRelativeTimeAgo(time);
+            tweet.createdAt = getTimeDifference(time);
             tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
         } catch (JSONException e) {
             e.printStackTrace();
