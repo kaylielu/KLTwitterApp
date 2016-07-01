@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Twitter</string>
-    <string name="login_label">Connect to Twitter</string>
+    <string name="login_label">Log in</string>
     <string name="title_activity_timeline">Home Timeline</string>
     <string name="action_settings">Settings</string>
     <string name="hello_word">Hello world!</string>
@@ -10,5 +10,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_to_twitter">Welcome to Twitter.</string>
+    <string name="get_real_time_updates_about_what_matters_to_you">Get real-time updates about what matters to you.</string>
 
 </resources>

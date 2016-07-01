@@ -18,6 +18,7 @@ public class User {
     public String screenName;
     public String profileImageUrl;
     public String tagline;
+    public String backgroundImageUrl;
     public int followersCount;
     public int followingsCount;
 
@@ -29,6 +30,7 @@ public class User {
         tagline = in.readString();
         followersCount = in.readInt();
         followingsCount = in.readInt();
+        backgroundImageUrl = in.readString();
     }
 
 
@@ -63,6 +65,10 @@ public class User {
         return profileImageUrl;
     }
 
+    public String getBackgroundImageUrl(){
+        return backgroundImageUrl;
+    }
+
     // deserialize the user json => user
     public static User fromJSON(JSONObject json){
         // extract and fill objects from json
@@ -75,6 +81,7 @@ public class User {
             u.tagline = json.getString("description");
             u.followersCount = json.getInt("followers_count");
             u.followingsCount = json.getInt("friends_count");
+            u.backgroundImageUrl = json.getString("profile_background_image_url");
         } catch (JSONException e) {
             e.printStackTrace();
         }

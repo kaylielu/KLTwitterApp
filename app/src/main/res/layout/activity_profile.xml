@@ -4,28 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:id="@+id/ivProfileImage"
-        android:src="@android:drawable/screen_background_light_transparent" />
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.codepath.apps.mysimpletweets.ProfileActivity"
-    android:weightSum="1">
+    android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/profile_toolbar"
         android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextColor="@android:color/white"
-        android:background="#55acee"
+        app:titleTextColor="#55acee"
+        android:background="#FFFFFF"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -33,9 +31,9 @@
         android:layout_alignParentEnd="true">
     </android.support.v7.widget.Toolbar>
 
-    <ImageView
+        <ImageView
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:id="@+id/ivBackground"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -43,20 +41,33 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <RelativeLayout
+
+        <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="98dp"
+        android:layout_height="84dp"
         android:layout_alignParentLeft="true"
         android:id="@+id/rlUserHeader"
         android:layout_gravity="center_horizontal|top">
 
-        <TextView
+            <ImageView
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:id="@+id/ivProfileImage"
+                android:src="@android:drawable/screen_background_light_transparent"
+                android:visibility="invisible"
+                android:padding="10dp"/>
+
+            <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvFullName"
-            android:layout_toRightOf="@+id/ivProfileImage"
             android:text="Name"
-            android:textSize="16sp"/>
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:padding="5dp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/ivProfileImage"
+                android:layout_toEndOf="@+id/ivProfileImage" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,10 +75,11 @@
             android:layout_alignLeft="@+id/tvFullName"
             android:layout_below="@+id/tvFullName"
             android:text="Tagline"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:padding="5dp"/>
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/llCounts"
@@ -81,24 +93,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvFollowers"
+            android:padding="5dp"
             android:text="5 Followers"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvFollowing"
-            android:layout_marginLeft="20dp"
+            android:padding="20dp"
             android:text="5 Following"
             />
     </LinearLayout>
 
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e1e8ed"></View>
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="155dp"
+        android:layout_height="match_parent"
         android:id="@+id/flContainer"
         android:layout_below="@+id/llCounts"
         android:layout_alignParentLeft="true">
 
     </FrameLayout>
 
-</LinearLayout>
+    </LinearLayout>
+
 </RelativeLayout>

@@ -59,11 +59,11 @@ public class TweetsListFragment extends Fragment {
             @Override
             public void onRefresh() {
 
-                Log.d("DEBUG", "entered onrefresh");
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
                 fetchTimelineAsync(0);
+
             }
         });
         // Configure the refreshing colors
@@ -78,7 +78,6 @@ public class TweetsListFragment extends Fragment {
 
     public void fetchTimelineAsync(int page) {
 
-        Log.d("DEBUG", "entered fetchTimelineAsync");
         // Send the network request to fetch the updated data
         // `client` here is an instance of Android Async HTTP
         client.getHomeTimeline( new JsonHttpResponseHandler() {

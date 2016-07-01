@@ -142,14 +142,11 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
 
     }
 
-
     public void onComposeTweet(MenuItem mi){
 
         showComposeDialog();
 //
     }
-
-
 
 
     // Return the order of the fragments in the view pager

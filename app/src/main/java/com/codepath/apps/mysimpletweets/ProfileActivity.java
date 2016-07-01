@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import org.parceler.Parcels;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -109,11 +111,16 @@ public class ProfileActivity extends AppCompatActivity {
         TextView tvTagline = (TextView) findViewById(R.id.tvTagline);
         TextView tvFollowers = (TextView) findViewById(R.id.tvFollowers);
         TextView tvFollowing = (TextView) findViewById(R.id.tvFollowing);
-        ImageView ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+
+        ImageView ivBackgroundImage = (ImageView) findViewById(R.id.ivBackground);
+        Picasso.with(this).load(user.getBackgroundImageUrl()).into(ivBackgroundImage);
         tvName.setText(user.getName());
         tvTagline.setText(user.getTagline());
         tvFollowers.setText(user.getFollowersCount() + " Followers");
         tvFollowing.setText(user.getFollowingsCount() + " Following");
-        Picasso.with(this).load(user.getProfileImageUrl()).into(ivProfileImage);
+        ImageView ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+        ivProfileImage.setVisibility(View.VISIBLE);
+        Picasso.with(getApplicationContext()).load(user.getProfileImageUrl()).transform(new RoundedCornersTransformation(10,0)).into(ivProfileImage);
+
     }
 }

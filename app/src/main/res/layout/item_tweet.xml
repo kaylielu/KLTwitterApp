@@ -66,4 +66,14 @@
         android:layout_margin="10dp"
         android:layout_below="@id/tvBody"/>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivRetweet"
+        android:src="@drawable/ic_retweet_green"
+        android:clickable="true"
+        android:layout_below="@+id/ivMedia"
+        android:layout_alignLeft="@+id/tvBody"
+        android:layout_alignStart="@+id/tvBody" />
+
 </RelativeLayout>
