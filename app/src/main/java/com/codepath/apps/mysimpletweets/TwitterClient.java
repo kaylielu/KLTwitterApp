@@ -50,7 +50,6 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("count", 25);
 		params.put("since_id", 1);
 		// Execute the request
-		Log.d("DEBUG", apiUrl + params);
 		getClient().get(apiUrl, params, handler);
 
 	}
@@ -69,7 +68,6 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		params.put("count",25);
 		params.put("screen_name", screenName);
-		Log.d("DEBUG", apiUrl + params);
 		getClient().get(apiUrl, params, handler);
 
 	}
@@ -85,16 +83,14 @@ public class TwitterClient extends OAuthBaseClient {
 		String apiUrl = getApiUrl("statuses/update.json");
 		RequestParams params = new RequestParams();
 		params.put("status", tweet);
-		Log.d("DEBUG", apiUrl + params);
 		getClient().post(apiUrl, params, handler);
 	}
 
 	public void searchTweets(String query, AsyncHttpResponseHandler handler){
 		String apiUrl = getApiUrl("search/tweets.json");
 		RequestParams params = new RequestParams();
-		params.put("?q", query);
-		Log.d("DEBUG", apiUrl + params);
-		getClient().post(apiUrl, params, handler);
+		params.put("q", query);
+		getClient().get(apiUrl, params, handler);
 	}
 
 

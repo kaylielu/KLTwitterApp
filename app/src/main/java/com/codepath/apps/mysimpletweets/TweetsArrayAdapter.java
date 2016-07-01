@@ -17,6 +17,8 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+
 /**
  * Created by kaylie on 6/27/16.
  */
@@ -48,18 +50,20 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         }
         // Find the subivews to fill with data in teh template
         ImageView ivProfileImage = (ImageView) convertView.findViewById(R.id.ivProfileImage);
-        TextView tvUserName = (TextView) convertView.findViewById(R.id.tvName);
+        TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
         TextView tvBody = (TextView)convertView.findViewById(R.id.tvBody);
         TextView tvTime = (TextView)convertView.findViewById(R.id.tvTime);
+        TextView tvUserName = (TextView)convertView.findViewById(R.id.tvUserHandle);
 
         // populate data into subviews
-        tvUserName.setText(tweet.getUser().getScreenName());
+        tvUserName.setText(tweet.getUser().getName());
         tvBody.setText(tweet.getBody());
         tvTime.setText(tweet.getCreatedAt());
         ivProfileImage.setImageResource(android.R.color.transparent); // clear out old image for recucleview
+        tvUserName.setText("@" + tweet.getUser().getScreenName());
 
 
-        Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(ivProfileImage);
+        Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).transform(new RoundedCornersTransformation(10,0)).into(ivProfileImage);
         ivProfileImage.setOnClickListener(new View.OnClickListener() {
 
             @Override

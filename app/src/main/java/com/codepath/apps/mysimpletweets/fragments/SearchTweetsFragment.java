@@ -14,6 +14,7 @@ import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
@@ -30,7 +31,6 @@ public class SearchTweetsFragment extends TweetsListFragment{
         super.onCreate(savedInstanceState);
         String query = getArguments().getString("query");
 
-        Log.d("DEBUG", query);
         // Connect adapter to list view
         client = TwitterApplication.getRestClient(); // singleton client
         performSearch(query);
@@ -54,14 +54,20 @@ public class SearchTweetsFragment extends TweetsListFragment{
         client.searchTweets(query, new JsonHttpResponseHandler() {
             // success
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                Log.d("DEBUG", json.toString());
+            public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
                 clear();
+                try{
+                    JSONArray arr = json.getJSONArray("statuses");
+                    addAll(Tweet.fromJSONArray(arr));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 //JSON HERE
                 // DESERIALIZE JSON
                 // CREATE MODELS and add them to the adapter
                 // LOAD THE MODEL DATA INTO LISTVIEW
-                addAll(Tweet.fromJSONArray(json));
+                //addAll(Tweet.fromJSON(json));
                 pd.dismiss();
             }
 

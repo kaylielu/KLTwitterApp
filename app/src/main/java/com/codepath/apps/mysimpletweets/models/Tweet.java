@@ -54,9 +54,14 @@ public class Tweet {
     private long uid; // unique id for the tweet
     private User user; // store imbedded user object
     private String createdAt;
+    private String imageUrl;
 
     public String getBody() {
         return body;
+    }
+
+    public String getImageUrl(){
+        return imageUrl;
     }
 
     public long getUid() {
@@ -134,6 +139,15 @@ public class Tweet {
             String time = jsonObject.getString("created_at");
             tweet.createdAt = getTimeDifference(time);
             tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
+
+            JSONObject entities = jsonObject.getJSONObject("entities");
+
+            if (entities.length() != 0) {
+                tweet.imageUrl = entities.getJSONArray("media").getJSONObject(0).getString("media_url");
+                Log.d("DEBUG", tweet.imageUrl);
+            }else{
+                tweet.imageUrl = "";
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -143,6 +157,7 @@ public class Tweet {
         return tweet;
 
     }
+
 
     // Tweet.fromJSONArray([{..}{..}=? List<Tweet>
     public static ArrayList<Tweet>fromJSONArray(JSONArray jsonArray){

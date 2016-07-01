@@ -112,10 +112,6 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
             }
         });
 
-        // Expand the search view and request focus
-        searchItem.expandActionView();
-        searchView.requestFocus();
-
         return super.onCreateOptionsMenu(menu);
 
     }

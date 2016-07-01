@@ -10,9 +10,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#35b7c6"
         android:layout_marginRight="5dp"
-        android:onClick="onProfileView"/>
+        android:layout_marginLeft="5dp"
+        android:onClick="onProfileView"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,7 +22,16 @@
         android:id="@+id/tvName"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivProfileImage"
-        android:layout_toEndOf="@+id/ivProfileImage" />
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:paddingLeft="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/tvUserHandle"
+        android:layout_toRightOf="@+id/tvName" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,7 +40,8 @@
         android:id="@+id/tvBody"
         android:layout_alignBottom="@+id/ivProfileImage"
         android:layout_toRightOf="@+id/ivProfileImage"
-        android:layout_toEndOf="@+id/ivProfileImage" />
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:padding="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,4 +52,5 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
