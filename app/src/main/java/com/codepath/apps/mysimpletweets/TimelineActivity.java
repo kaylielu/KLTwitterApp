@@ -72,6 +72,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.timeline_toolbar);
         setSupportActionBar(toolbar);
+        //toolbar.setLogo(@drawable/);
 
     }
 

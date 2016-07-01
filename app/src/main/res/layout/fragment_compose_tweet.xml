@@ -1,25 +1,41 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="450dp"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+        android:layout_height="480dp"
+
+    android:minWidth="300dp"
+    android:minHeight="450dp"
     tools:context=".fragments.ComposeTweetFragment"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+        android:id="@+id/linearLayout">
+
+    <View android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/gray_box"
+        android:background="#ccd6dd"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="476dp"
-        android:layout_gravity="right|top"
+        android:layout_height="369dp"
         android:layout_margin="20dp">
 
         <ImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:id="@+id/ivProfile"
-            android:layout_gravity="right|top"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/ibClose"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="10dp" />
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,10 +43,10 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
             android:id="@+id/tvName"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/ivProfile"
-            android:layout_toStartOf="@+id/ivProfile"
-            android:layout_margin="10dp" />
+            android:layout_alignTop="@+id/ivProfile"
+            android:layout_alignLeft="@+id/tvScreenname"
+            android:layout_alignStart="@+id/tvScreenname"
+            android:textColor="#000000"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -38,9 +54,10 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
             android:id="@+id/tvScreenname"
-            android:layout_below="@+id/tvName"
-            android:layout_alignRight="@+id/tvName"
-            android:layout_alignEnd="@+id/tvName" />
+            android:layout_above="@+id/etTweetBody"
+            android:layout_toLeftOf="@+id/ivProfile"
+            android:layout_toStartOf="@+id/ivProfile"
+            android:layout_margin="5dp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -48,37 +65,12 @@
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/etTweetBody"
+            android:hint="What&apos;s happening?"
+            android:layout_below="@+id/ivProfile"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignRight="@+id/btnSubmitTweet"
-            android:layout_alignEnd="@+id/btnSubmitTweet"
-            android:layout_below="@+id/ivProfile"
-            android:hint="What&apos;s happening?" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tweet"
-            android:id="@+id/btnSubmitTweet"
-            android:layout_below="@+id/etTweetBody"
-            android:layout_alignRight="@+id/ivProfile"
-            android:layout_alignEnd="@+id/ivProfile"
-            android:layout_margin="0dp"
-            android:onClick="postTweet"
-            android:layout_marginRight="10dp"
-            android:background="#55acee"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="140"
-            android:id="@+id/tvCharLeft"
-            android:layout_alignBottom="@id/btnSubmitTweet"
-            android:paddingBottom="16dp"
-            android:paddingRight="5dp"
-            android:layout_toLeftOf="@id/btnSubmitTweet"
-             />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -88,8 +80,38 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_margin="10dp"
-            android:onClick="endFrag"/>
+            android:clickable="true"
+            android:src="@drawable/exit_svg" />
 
     </RelativeLayout>
 
-</FrameLayout>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="140"
+        android:id="@+id/tvCharLeft"
+        android:paddingBottom="16dp"
+        android:paddingRight="5dp"
+        android:layout_gravity="right|bottom"
+        android:layout_alignBottom="@+id/btnSubmitTweet"
+        android:layout_toLeftOf="@+id/btnSubmitTweet"
+        android:layout_toStartOf="@+id/btnSubmitTweet" />
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:text="Tweet"
+        android:textSize="10sp"
+        android:id="@+id/btnSubmitTweet"
+        android:onClick="postTweet"
+        android:background="#55acee"
+        android:layout_gravity="right"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"/>
+
+</RelativeLayout>

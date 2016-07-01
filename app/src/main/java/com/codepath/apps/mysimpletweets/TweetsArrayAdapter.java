@@ -67,6 +67,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         ivProfileImage.setImageResource(android.R.color.transparent); // clear out old image for recucleview
         tvUserName.setText(" @" + tweet.getUser().getScreenName());
 
+        ivMedia.setImageResource(0);
         if(!TextUtils.isEmpty(tweet.getImageUrl())){
             Picasso.with(getContext()).load(tweet.getImageUrl()).transform(new RoundedCornersTransformation(15,0)).into(ivMedia);
         }

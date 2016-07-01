@@ -6,14 +6,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.codepath.apps.mysimpletweets.TimelineActivity">
 
-    <android.support.v7.widget.Toolbar
+       <android.support.v7.widget.Toolbar
         android:id="@+id/timeline_toolbar"
         android:minHeight="?attr/actionBarSize"
         android:title="Home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleTextColor="@android:color/white"
-        android:background="#55acee">
+        android:background="#FFFFFF">
+
+           <ImageView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:src="@mipmap/ic_launcher"
+               android:layout_gravity="left"
+               android:gravity="left"
+               android:layout_alignParentLeft="true"/>
     </android.support.v7.widget.Toolbar>
 
     <com.astuetz.PagerSlidingTabStrip

@@ -94,4 +94,11 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    public void endFrag(View view) {
+
+        getSupportFragmentManager().beginTransaction().
+                remove(getSupportFragmentManager().findFragmentById(R.id.flSearch)).commit();
+    }
+
+
 }

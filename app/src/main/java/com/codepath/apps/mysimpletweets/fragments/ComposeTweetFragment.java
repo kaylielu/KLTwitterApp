@@ -52,8 +52,7 @@ public class ComposeTweetFragment extends DialogFragment {
     TextView screenname;
     @BindView(R.id.ivProfile)
     ImageView ivProfile;
-    @BindView (R.id.ibClose)
-    ImageView ivClose;
+
     private String tweet;
     private Unbinder unbinder;
     private TwitterClient client;
@@ -82,7 +81,6 @@ public class ComposeTweetFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        client = TwitterApplication.getRestClient();
         View view = inflater.inflate(R.layout.fragment_compose_tweet, container, false);
         unbinder = ButterKnife.bind(this, view);
 
@@ -93,7 +91,7 @@ public class ComposeTweetFragment extends DialogFragment {
                 Log.d("USER", user.getName() + " " + user.getProfileImageUrl() + " " + user.getTagline());
                 Log.d("USER", user.getName() + " " + user.getProfileImageUrl() + " " + user.getTagline());
                 name.setText(user.getName());
-                screenname.setText(user.getScreenName());
+                screenname.setText( "@" + user.getScreenName());
                 Picasso.with(getContext()).load(user.getProfileImageUrl()).transform(new RoundedCornersTransformation(10,0)).into(ivProfile);
 
             }
@@ -104,7 +102,13 @@ public class ComposeTweetFragment extends DialogFragment {
             }
         });
 
-        tweetText = (EditText) view.findViewById(R.id.etTweetBody);
+        ImageView ivClose = (ImageView) view.findViewById((R.id.ibClose));
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
         return view;
 
@@ -149,21 +153,13 @@ public class ComposeTweetFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 tweet = tweetText.getText().toString();
+                Log.d("DEBUG", "tweet " + tweet);
                 postTweet();
 
 
             }
 
 
-        });
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                if (fm.getBackStackEntryCount() > 0) {
-                    fm.popBackStack();
-                }
-            }
         });
 
     }
@@ -178,8 +174,6 @@ public class ComposeTweetFragment extends DialogFragment {
                 // DESERIALIZE JSON
                 // CREATE MODELS and add them to the adapter
                 // LOAD THE MODEL DATA INTO LISTVIEW
-
-                Tweet tweet = Tweet.fromJSON(json);
 
                 // Return input text back to activity through the implemented listener
                 ComposeTweetListener listener = (ComposeTweetListener) getActivity();
