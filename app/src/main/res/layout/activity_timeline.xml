@@ -25,7 +25,8 @@
         android:fillViewport="false"
         android:layout_below="@+id/timeline_toolbar"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        app:pstsIndicatorColor="#55acee"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

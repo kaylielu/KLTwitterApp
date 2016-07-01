@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
     android:padding="10dp">
 
     <ImageView
@@ -23,7 +23,8 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivProfileImage"
         android:layout_toEndOf="@+id/ivProfileImage"
-        android:paddingLeft="5dp"/>
+        android:paddingLeft="5dp"
+        android:textStyle="bold"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,10 +39,10 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/tvBody"
-        android:layout_alignBottom="@+id/ivProfileImage"
-        android:layout_toRightOf="@+id/ivProfileImage"
+        android:padding="5dp"
+        android:layout_below="@+id/tvName"
         android:layout_toEndOf="@+id/ivProfileImage"
-        android:padding="5dp"/>
+        android:layout_toRightOf="@+id/ivProfileImage" />
 
     <TextView
         android:layout_width="wrap_content"
