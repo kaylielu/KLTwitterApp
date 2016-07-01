@@ -31,17 +31,6 @@ public class User {
         followingsCount = in.readInt();
     }
 
-//    public static final Creator<User> CREATOR = new Creator<User>() {
-//        @Override
-//        public User createFromParcel(Parcel in) {
-//            return new User(in);
-//        }
-//
-//        @Override
-//        public User[] newArray(int size) {
-//            return new User[size];
-//        }
-//    };
 
     public User() {
     }
@@ -94,21 +83,4 @@ public class User {
         return u;
     }
 
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeString(name);
-//        dest.writeLong(uid);
-//        dest.writeString(screenName);
-//        dest.writeString(profileImageUrl);
-//        dest.writeString(tagline);
-//        dest.writeInt(followersCount);
-//        dest.writeInt(followingsCount);
-//
-//
-//    }
 }

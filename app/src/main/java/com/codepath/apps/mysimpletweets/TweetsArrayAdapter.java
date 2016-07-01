@@ -2,12 +2,14 @@ package com.codepath.apps.mysimpletweets;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.codepath.apps.mysimpletweets.models.Tweet;
@@ -54,13 +56,20 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         TextView tvBody = (TextView)convertView.findViewById(R.id.tvBody);
         TextView tvTime = (TextView)convertView.findViewById(R.id.tvTime);
         TextView tvUserName = (TextView)convertView.findViewById(R.id.tvUserHandle);
+        ImageView ivMedia = (ImageView)convertView.findViewById(R.id.ivMedia);
+        RelativeLayout rlTweet = (RelativeLayout) convertView.findViewById(R.id.rlTweet);
 
         // populate data into subviews
-        tvUserName.setText(tweet.getUser().getName());
+        tvName.setText(tweet.getUser().getName());
+        tvUserName.setText(tweet.getUser().getScreenName());
         tvBody.setText(tweet.getBody());
         tvTime.setText(tweet.getCreatedAt());
         ivProfileImage.setImageResource(android.R.color.transparent); // clear out old image for recucleview
         tvUserName.setText(" @" + tweet.getUser().getScreenName());
+
+        if(!TextUtils.isEmpty(tweet.getImageUrl())){
+            Picasso.with(getContext()).load(tweet.getImageUrl()).transform(new RoundedCornersTransformation(15,0)).into(ivMedia);
+        }
 
 
         Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).transform(new RoundedCornersTransformation(10,0)).into(ivProfileImage);
@@ -76,6 +85,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
             }
 
         });
+
         //return the view to be inserted into teh list
         return convertView;
     }

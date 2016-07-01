@@ -142,13 +142,15 @@ public class Tweet {
 
             JSONObject entities = jsonObject.getJSONObject("entities");
 
-//            if (entities.length() != 0) {
-//                tweet.imageUrl = entities.getJSONArray("media").getJSONObject(0).getString("media_url");
-//                Log.d("DEBUG", tweet.imageUrl);
-//            }else{
-//                tweet.imageUrl = "";
-//            }
+            if (entities.length() != 0) {
+
+                tweet.imageUrl = entities.getJSONArray("media").getJSONObject(0).getString("media_url");
+                Log.d("DEBUG", tweet.imageUrl);
+            }else{
+                tweet.imageUrl = "";
+            }
         } catch (JSONException e) {
+            tweet.imageUrl = "";
             e.printStackTrace();
         }
 
