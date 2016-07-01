@@ -31,15 +31,15 @@ import cz.msebera.android.httpclient.Header;
  */
 public class TweetsListFragment extends Fragment {
 
-    private ArrayList<Tweet> tweets;
-    private TweetsArrayAdapter aTweets;
+    protected ArrayList<Tweet> tweets;
+    protected TweetsArrayAdapter aTweets;
     @BindView (R.id.lvTweets) ListView lvTweets;
     private Unbinder unbinder;
     // inflation logic
 
     public TwitterClient client;
 
-    private SwipeRefreshLayout swipeContainer;
+    protected SwipeRefreshLayout swipeContainer;
 
 
     @Nullable

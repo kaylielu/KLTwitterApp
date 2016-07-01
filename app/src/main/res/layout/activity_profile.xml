@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:id="@+id/ivProfileImage"
+        android:src="@android:drawable/screen_background_light_transparent" />
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.codepath.apps.mysimpletweets.ProfileActivity">
+    tools:context="com.codepath.apps.mysimpletweets.ProfileActivity"
+    android:weightSum="1">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/profile_toolbar"
@@ -20,23 +33,25 @@
         android:layout_alignParentEnd="true">
     </android.support.v7.widget.Toolbar>
 
-    <RelativeLayout
+
+
+    <ImageView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/ivBackground"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/rlUserHeader"
-        android:layout_below="@+id/profile_toolbar">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-        <ImageView
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginRight="10dp"
-            android:id="@+id/ivProfileImage"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:src="@android:drawable/screen_background_light_transparent"
-            />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="98dp"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/rlUserHeader"
+        android:layout_gravity="center_horizontal|top">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,13 +70,15 @@
 
 
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/llCounts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@+id/rlUserHeader"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignBottom="@+id/ivProfileImage"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,9 +95,12 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="155dp"
         android:id="@+id/flContainer"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/llCounts"></FrameLayout>
+        android:layout_below="@+id/llCounts"
+        android:layout_alignParentLeft="true">
+
+    </FrameLayout>
+
+</LinearLayout>
 </RelativeLayout>

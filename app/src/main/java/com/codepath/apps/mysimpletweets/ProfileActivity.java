@@ -40,12 +40,12 @@ public class ProfileActivity extends AppCompatActivity {
         client = TwitterApplication.getRestClient();
         setSupportActionBar(toolbar);
 
-        final ProgressDialog pd = new ProgressDialog(getApplicationContext());
-        pd.setTitle("Loading...");
-        pd.setMessage("Please wait.");
-        pd.setCancelable(false);
-
-        pd.show();
+//        final ProgressDialog pd = new ProgressDialog(getApplicationContext());
+//        pd.setTitle("Loading...");
+//        pd.setMessage("Please wait.");
+//        pd.setCancelable(false);
+//
+//        pd.show();
         if (p == null) {
 
             // Get the account info
@@ -56,13 +56,13 @@ public class ProfileActivity extends AppCompatActivity {
                     Log.d("USER", user.getName() + " " + user.getProfileImageUrl() + " " + user.getTagline());
                     populateProfileHeader(user, savedInstanceState);
 
-                    pd.dismiss();
+//                    pd.dismiss();
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     throwable.printStackTrace();
-                    pd.dismiss();
+//                    pd.dismiss();
                 }
             });
 
@@ -71,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
             Log.d("DEBUG", "clicked on other profile");
             user = Parcels.unwrap(p);
             populateProfileHeader(user, savedInstanceState);
-            pd.dismiss();
+//            pd.dismiss();
 
         }
 
