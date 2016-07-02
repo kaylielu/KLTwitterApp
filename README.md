@@ -50,22 +50,24 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/kaylielu/KLTwitterApp/blob/master/twitter.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+I had trouble getting the search to work because I used "post" instead of "get", so I could not complete the json call. I also had trouble with compose because I did not know how to add the tweet to the array. Overall, this application was very challenging for me but it's great to see how far I've come these three weeks. I'm really proud of my peers and myself and I was grateful to work with such a kind, helpful, funny, thoughtful group. I am also excited to apply the skills I've learned to the group application that I will begin developing next week. 
+
 
 ## Open-source libraries used
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
 - [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
+- [ButterKnife](http://jakewharton.github.io/butterknife) - Field and method binding for Android Views 
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2016] [Kaylie Lu]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
